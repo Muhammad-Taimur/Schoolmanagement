@@ -19,7 +19,7 @@ namespace FirstProject.Controllers
         private readonly DBContext _context;
         private readonly IStudent _studentrepo;
         private readonly IMapper _mapper;
-
+        
         //private readonly 
 
         public StudentsController(DBContext context, IStudent studentrepo, IMapper mapper)
