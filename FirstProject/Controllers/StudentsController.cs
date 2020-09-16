@@ -10,6 +10,7 @@ using FirstProject.Services;
 using AutoMapper;
 using FirstProject.Models.ViewModels;
 
+
 namespace FirstProject.Controllers
 {
     [Route("api/[controller]")]
@@ -19,9 +20,6 @@ namespace FirstProject.Controllers
         private readonly DBContext _context;
         private readonly IStudent _studentrepo;
         private readonly IMapper _mapper;
-        
-        
-        
 
         public StudentsController(DBContext context, IStudent studentrepo, IMapper mapper)
         {
@@ -29,6 +27,12 @@ namespace FirstProject.Controllers
             _studentrepo = studentrepo;
             _mapper = mapper;
         }
+
+        /// <summary>
+        /// Gets the list of all Students.
+        /// </summary>
+        /// <returns>The list of Students.</returns>
+        /// GET: api/Students
 
         // GET: api/Students
         [HttpGet]
@@ -44,6 +48,11 @@ namespace FirstProject.Controllers
             return Ok(userViewModel);
             //return data;
         }
+
+        /// <summary>
+        /// Gets 1 Student record by inputting ID.
+        /// </summary>
+
 
         // GET: api/Students/5
         [HttpGet("{id}")]
@@ -63,6 +72,11 @@ namespace FirstProject.Controllers
         // PUT: api/Students/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
+        /// <summary>
+        /// Update Student Record.
+        /// </summary>
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(int id, [FromBody]Student student)
         {
@@ -94,9 +108,24 @@ namespace FirstProject.Controllers
             return NoContent();
         }
 
+
+
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST api/Employee
+        ///     {        
+        ///       "fName": "Mike",
+        ///       "lName": "Andrew",
+        ///       "dob": "2020-09-16T15:10:04.154Z"        
+        ///     }
+        /// </remarks> 
+
         // POST: api/Students
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Create a new Student Record.
+        /// </summary>
+
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
@@ -108,6 +137,11 @@ namespace FirstProject.Controllers
         }
 
         // DELETE: api/Students/5
+
+        /// <summary>
+        /// Delete Student.
+        /// </summary>
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<Student>> DeleteStudent(int id)
         {

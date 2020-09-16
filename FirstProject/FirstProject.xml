@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FirstProject</name>
+    </assembly>
+    <members>
+        <member name="M:FirstProject.Controllers.StudentsController.GetStudent">
+            <summary>
+            Gets the list of all Students.
+            </summary>
+            <returns>The list of Students.</returns>
+            GET: api/Students
+        </member>
+        <member name="M:FirstProject.Controllers.StudentsController.GetStudent(System.Int32)">
+            <summary>
+            Gets 1 Student record by inputting ID.
+            </summary>
+        </member>
+        <member name="M:FirstProject.Controllers.StudentsController.PutStudent(System.Int32,FirstProject.Models.Entities.Student)">
+            <summary>
+            Update Student Record.
+            </summary>
+        </member>
+        <member name="M:FirstProject.Controllers.StudentsController.PostStudent(FirstProject.Models.Entities.Student)">
+            <summary>
+            Create a new Student Record.
+            </summary>
+        </member>
+        <member name="M:FirstProject.Controllers.StudentsController.DeleteStudent(System.Int32)">
+            <summary>
+            Delete Student.
+            </summary>
+        </member>
+    </members>
+</doc>
