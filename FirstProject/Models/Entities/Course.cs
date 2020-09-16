@@ -10,7 +10,7 @@ namespace FirstProject.Models.Entities
     {
         public int CourseID { get; set; }
         public string Name { get; set; }
-
+            
         //[ForeignKey ("Teacher")]
         //public int TeacherID { get; set; }
         //public virtual Teacher Teacher { get; set; }
