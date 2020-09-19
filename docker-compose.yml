@@ -1,0 +1,20 @@
+version: '3.4'
+
+volumes:
+  datafiles:
+
+services:
+  db:
+    image:  "mcr.microsoft.com/mssql/server"
+    volumes:
+      - datafiles:/var/lib/mysql
+    restart: always
+    environment:
+       MYSQL_ROOT_PASSWORD: secret
+       ACCEPT_EULA: "Y"
+
+  firstproject:
+    image: ${DOCKER_REGISTRY-}firstproject
+    build:
+      context: .
+      dockerfile: FirstProject/Dockerfile

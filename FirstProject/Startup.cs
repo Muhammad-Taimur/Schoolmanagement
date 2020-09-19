@@ -14,9 +14,10 @@ using Microsoft.EntityFrameworkCore;
 using FirstProject.Services;
 using AutoMapper;
 using FirstProject.Models;
-using Microsoft.OpenApi.Models;
+//ing Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace FirstProject
 {
@@ -32,7 +33,18 @@ namespace FirstProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            //Creating these variables for DOCKER Environment variable.
+
+            var server = Configuration["DBServer"] ?? "localhost";
+            var port = Configuration["DBPort"] ?? "1433";
+            var password = Configuration["DBPassword"] ?? "PA$$w0rd2019";
+            var database= Configuration["DATABASE"] ?? "Student";
+            var user = Configuration["DBUser"] ?? "sa";
+
+            services.AddDbContext<DBContext>(options =>
+                    options.UseSqlServer($"Server={server},{port};Initial Catalog={database};user Id={user};Password={password}"));
+
+           
             services.AddControllers();
 
             services.AddDbContext<DBContext>(options =>
@@ -63,9 +75,28 @@ namespace FirstProject
             services.AddControllersWithViews();
         }
 
+        //Craete this method for Automigration
+        public static void SeedData(DBContext context)
+        {
+            System.Console.WriteLine("Applying Migrations..");
+            context.Database.Migrate();
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //Create this method for auto seed Data.
+            using (var  serviceScope = app.ApplicationServices.CreateScope())
+            {
+                SeedData(serviceScope.ServiceProvider.GetService<DBContext>());
+            }
+
+            
+
+            //System.Console.WriteLine("Applying Migrations...");
+            ////Migrating all DB when container lanch and App runs
+            //context.Database.Migrate();
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -81,6 +112,8 @@ namespace FirstProject
             }
 
             //app.UseMvc();
+
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
