@@ -1,6 +1,6 @@
 {
   "Routes": [
-    {     
+    {
       "DownstreamPathTemplate": "/api/students",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -10,7 +10,31 @@
         }
       ],
       "UpstreamPathTemplate": "/studentservice",
-      "UpstreamHttpMethod": [ "GET", "POST", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "Put", "Delete" ],
+      "Key": "student"
+    },
+    {
+      "DownstreamPathTemplate": "/api/courses",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44351
+        }
+      ],
+      "UpstreamPathTemplate": "/coursesservice",
+      "UpstreamHttpMethod": [ "GET", "POST", "Put", "Delete" ],
+      "Key": "courses"
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "student",
+        "courses"
+      ],
+      "UpstreamPathTemplate": "/sys/list"
+
     }
   ]
 }
